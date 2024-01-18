@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../components/time_revenue_item.dart';
 import '../constants/colors.dart';
-import '../models/abstract_pool.dart';
+import '../models/pool_factory.dart';
 
 class RevenueWidget extends StatelessWidget {
   const RevenueWidget({super.key, required PoolStatFactory statistics})

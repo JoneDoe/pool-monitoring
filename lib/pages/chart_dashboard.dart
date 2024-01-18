@@ -1,14 +1,13 @@
-import 'dart:convert';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
-import '../chart/chart_data.dart';
-import '../components/url_builder.dart';
+import '../chart/bar_chart_data.dart';
 import '../exceptions/waller_exception.dart';
 import '../constants/colors.dart';
-import '../models/abstract_pool.dart';
+import '../models/pool_factory.dart';
 import '../models/crypto.dart';
+import '../chart/providers/daily_stat_provider.dart';
+import '../widgets/app_bar_widget.dart';
 import 'main_dashboard.dart';
 
 class ChartDashboard extends StatefulWidget {
@@ -21,13 +20,14 @@ class ChartDashboard extends StatefulWidget {
 }
 
 class _ChartDashboardState extends State<ChartDashboard> {
-  List<ChartData> data = [];
+  AppBarChartData _myBarData = AppBarChartData();
   PoolName _poolName = PoolName.herominers;
+  bool _loading = false;
 
   @override
   void initState() {
     super.initState();
-    // fetchCartData();
+    loadDailyStat();
   }
 
   void _showAlert(String msg) async {
@@ -73,36 +73,19 @@ class _ChartDashboardState extends State<ChartDashboard> {
       _poolName = PoolName.values[index];
     });
 
-    fetchCartData();
+    loadDailyStat();
   }
 
-  Future<void> fetchCartData() async {
+  Future<void> loadDailyStat() async {
+    setState(() => _loading = true);
+
     try {
-      var builder = PoolUrlBuilder(
-        poolName: _poolName,
-        coin: widget.crypto,
-      );
+      var data = await DailyStatProvider.load(_poolName, widget.crypto);
 
-      debugPrint(builder.url());
-      // Config config = await PoolConfigProvider()
-      //     .fetchData(widget.crypto.name.toLowerCase());
-      // print(config);
-      final response = await http.get(Uri.parse(builder.url()));
-      // print(config);
-      final decoded = json.decode(response.body);
-
-      print(decoded['charts']['payments']);
-
-      if (response.statusCode == 200 && decoded['error'] == null) {
-        // setState(() {
-        //   data = decoded['charts']['payments'].map((item) => ChartData(
-        //         xval: DateTime.fromMicrosecondsSinceEpoch(item[0]),
-        //         yval: item[1].toDouble / 10000,
-        //       ));
-        // });
-      } else {
-        throw Exception('Failed to load crypto data for ${widget.crypto.name}');
-      }
+      setState(() {
+        _loading = false;
+        _myBarData = data;
+      });
     } on WalletException catch (e) {
       debugPrint(e.toString());
       _showAlert(e.toString());
@@ -111,81 +94,56 @@ class _ChartDashboardState extends State<ChartDashboard> {
     }
   }
 
-  // final List _chartData;
-
   @override
   Widget build(BuildContext context) {
-    ChartData myBarData = ChartData(
-      sevenDays: 231,
-      sixDays: 112.5,
-      fiveDays: 213.4,
-      fourDays: 135.7,
-      threeDays: 114.3,
-      twoDays: 15.6,
-      oneDay: 0,
-    );
-    myBarData.initializeBarData();
-
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(
-        backgroundColor: secondaryColor,
-        foregroundColor: textColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image(
-              image: AssetImage(widget.crypto.iconUrl),
-              width: 20,
-              height: 20,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.error);
-              },
-            ),
-            const SizedBox(width: 5.0),
-            Text(
-              widget.crypto.name,
-              style: const TextStyle(color: textColor),
-            ),
-          ],
-        ),
-        actions: <Widget>[
+      appBar: myAppBar(
+        widget.crypto,
+        <Widget>[
           IconButton(
-            icon: const Icon(
-              Icons.replay,
-              color: textColor,
-            ),
+            icon: _loading
+                ? const CircularProgressIndicator()
+                : const Icon(
+                    Icons.replay,
+                    color: textColor,
+                  ),
             onPressed: () {
               // ScaffoldMessenger.of(context).showSnackBar(
               //   const SnackBar(content: Text('Fetch crypto data')),
               // );
-              fetchCartData();
+              loadDailyStat();
             },
           ),
         ],
       ),
-      body: Center(
-        child: SizedBox(
-          height: 400,
-          child: BarChart(
-            BarChartData(
-              alignment: BarChartAlignment.spaceAround,
-              maxY: 300,
-              minY: 0,
-              barTouchData: barTouchData,
-              gridData: const FlGridData(
-                drawHorizontalLine: true,
-                drawVerticalLine: false,
-              ),
-              borderData: borderData,
-              titlesData: titlesData,
-              barGroups: _chartGroups(myBarData),
-            ),
-          ),
-        ),
-      ),
+      body: Center(child: chartWidget(_myBarData)),
     );
   }
+}
+
+Widget chartWidget(AppBarChartData barData) {
+  return Center(
+    child: SizedBox(
+      height: 400,
+      child: BarChart(
+        // swapAnimationDuration: const Duration(milliseconds: 150),
+        BarChartData(
+          // alignment: BarChartAlignment.spaceAround,
+          maxY: barData.maxValue().roundToDouble() + 1,
+          minY: 0,
+          barTouchData: barTouchData,
+          gridData: const FlGridData(
+            drawHorizontalLine: true,
+            drawVerticalLine: false,
+          ),
+          borderData: borderData,
+          titlesData: titlesData,
+          barGroups: _chartGroups(barData),
+        ),
+      ),
+    ),
+  );
 }
 
 FlBorderData get borderData => FlBorderData(
@@ -244,19 +202,23 @@ BarTouchData get barTouchData => BarTouchData(
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
+            children: [
+              // TextSpan(text: group.x.toString()),
+              // TextSpan(text: ''),
+            ],
           );
         },
       ),
     );
 
-List<BarChartGroupData> _chartGroups(ChartData myBarData) {
+List<BarChartGroupData> _chartGroups(AppBarChartData myBarData) {
   return myBarData.chartData
       .map((data) => BarChartGroupData(
             x: data.x,
             barRods: [
               BarChartRodData(
                 toY: data.y,
-                width: 30,
+                width: 35,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
@@ -281,25 +243,25 @@ Widget _getLeftTiles(double value, TitleMeta meta) {
 Widget _getBottomTitles(double value, TitleMeta meta) {
   String textValue = '';
   switch (value.toInt()) {
-    case 1:
+    case 6:
       textValue = '24h';
       break;
-    case 2:
+    case 5:
       textValue = '2d';
       break;
-    case 3:
+    case 4:
       textValue = '3d';
       break;
-    case 4:
+    case 3:
       textValue = '4d';
       break;
-    case 5:
+    case 2:
       textValue = '5d';
       break;
-    case 6:
+    case 1:
       textValue = '6d';
       break;
-    case 7:
+    case 0:
       textValue = '7d';
       break;
   }
@@ -316,13 +278,3 @@ Widget _getBottomTitles(double value, TitleMeta meta) {
     ),
   );
 }
-// class ChartData {
-//   ChartData({required this.xval, required this.yval});
-
-//   final DateTime xval;
-//   final double yval;
-
-//   var d12 = DateFormat('MMdd');
-
-//   String get val => d12.format(xval);
-// }

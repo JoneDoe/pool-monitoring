@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class PoolConfigProvider {
-  Future<Config> fetchData(String coin) async {
+  Future<Config> load(String coin) async {
     var url = 'https://$coin.herominers.com/api/stats';
 
     final response = await http.get(Uri.parse(url));

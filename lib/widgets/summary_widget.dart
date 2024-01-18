@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../components/info_item.dart';
 import '../constants/colors.dart';
-import '../models/abstract_pool.dart';
+import '../models/pool_factory.dart';
 import '../extensions/number_extension.dart';
 
 class SummaryWidget extends StatelessWidget {

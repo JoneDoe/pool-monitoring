@@ -1,4 +1,4 @@
-import '../models/abstract_pool.dart';
+import '../models/pool_factory.dart';
 import '../models/crypto.dart';
 import '../exceptions/waller_exception.dart';
 import '../providers/wallet_provider.dart';

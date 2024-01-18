@@ -1,5 +1,5 @@
 import '../providers/pool_config_provider.dart';
-import 'abstract_pool.dart';
+import 'pool_factory.dart';
 import 'worker.dart';
 
 class WoolyPoolyPoolStats extends PoolStatFactory {

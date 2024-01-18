@@ -39,21 +39,3 @@ class PoolStatFactory {
     }
   }
 }
-
-// class IncomeUsd {
-//   double price;
-//   double incomeHour;
-//   double incomeHalfDay;
-//   double incomeDay;
-//   double incomeWeek;
-//   double incomeMonth;
-
-//   IncomeUsd({
-//     this.price = 0,
-//     this.incomeHour = 0,
-//     this.incomeHalfDay = 0,
-//     this.incomeDay = 0,
-//     this.incomeWeek = 0,
-//     this.incomeMonth = 0,
-//   });
-// }

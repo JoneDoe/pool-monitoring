@@ -5,9 +5,10 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../exceptions/waller_exception.dart';
 import '../extensions/string_extension.dart';
 import '../constants/colors.dart';
-import '../models/abstract_pool.dart';
+import '../models/pool_factory.dart';
 import '../models/crypto.dart';
 import '../providers/pool_stat_provider.dart';
+import '../widgets/app_bar_widget.dart';
 import '../widgets/revenue_widget.dart';
 import '../widgets/summary_widget.dart';
 import '../widgets/workers_widget.dart';
@@ -105,28 +106,9 @@ class _PoolDashboardState extends State<PoolDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(
-        backgroundColor: secondaryColor,
-        foregroundColor: textColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image(
-              image: AssetImage(widget.crypto.iconUrl),
-              width: 20,
-              height: 20,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.error);
-              },
-            ),
-            const SizedBox(width: 5.0),
-            Text(
-              widget.crypto.name,
-              style: const TextStyle(color: textColor),
-            ),
-          ],
-        ),
-        actions: <Widget>[
+      appBar: myAppBar(
+        widget.crypto,
+        <Widget>[
           IconButton(
             icon: _loading
                 ? const CircularProgressIndicator()

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../components/url_builder.dart';
-import '../models/abstract_pool.dart';
+import '../models/pool_factory.dart';
 import '../models/crypto.dart';
 import 'pool_config_provider.dart';
 
@@ -16,7 +16,7 @@ class PoolStatProvider {
 
     print(builder.url());
 
-    Config config = await PoolConfigProvider().fetchData(crypto.name);
+    Config config = await PoolConfigProvider().load(crypto.name);
     final response = await http.get(Uri.parse(builder.url()));
 
     PoolStatFactory statistics = PoolStatFactory();
