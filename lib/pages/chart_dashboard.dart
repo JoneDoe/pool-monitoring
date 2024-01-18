@@ -66,8 +66,12 @@ class _ChartDashboardState extends State<ChartDashboard> {
   }
 
   changePool(int index) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Pool cnahged')));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Pool has been cnahged'),
+        duration: Duration(seconds: 2),
+      ),
+    );
 
     setState(() {
       _poolName = PoolName.values[index];
@@ -76,8 +80,10 @@ class _ChartDashboardState extends State<ChartDashboard> {
     loadDailyStat();
   }
 
-  Future<void> loadDailyStat() async {
-    setState(() => _loading = true);
+  Future<void> loadDailyStat({bool? disableLoading}) async {
+    if (null == disableLoading) {
+      setState(() => _loading = true);
+    }
 
     try {
       var data = await DailyStatProvider.load(_poolName, widget.crypto);
@@ -99,8 +105,8 @@ class _ChartDashboardState extends State<ChartDashboard> {
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: myAppBar(
-        widget.crypto,
-        <Widget>[
+        cryptoInfo: widget.crypto,
+        actions: <Widget>[
           IconButton(
             icon: _loading
                 ? const CircularProgressIndicator()
@@ -108,16 +114,19 @@ class _ChartDashboardState extends State<ChartDashboard> {
                     Icons.replay,
                     color: textColor,
                   ),
-            onPressed: () {
-              // ScaffoldMessenger.of(context).showSnackBar(
-              //   const SnackBar(content: Text('Fetch crypto data')),
-              // );
-              loadDailyStat();
-            },
+            onPressed: () => loadDailyStat(),
           ),
         ],
       ),
-      body: Center(child: chartWidget(_myBarData)),
+      body: RefreshIndicator(
+        onRefresh: () => loadDailyStat(disableLoading: true),
+        child: ListView(
+          padding: const EdgeInsets.only(top: 125, right: 25),
+          children: [
+            chartWidget(_myBarData),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -202,10 +211,6 @@ BarTouchData get barTouchData => BarTouchData(
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
-            children: [
-              // TextSpan(text: group.x.toString()),
-              // TextSpan(text: ''),
-            ],
           );
         },
       ),
@@ -218,10 +223,10 @@ List<BarChartGroupData> _chartGroups(AppBarChartData myBarData) {
             barRods: [
               BarChartRodData(
                 toY: data.y,
-                width: 35,
+                width: 30,
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+                  topLeft: Radius.circular(5),
+                  topRight: Radius.circular(5),
                 ),
                 gradient: _barsGradient,
               ),

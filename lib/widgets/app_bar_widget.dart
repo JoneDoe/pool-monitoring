@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import '../models/crypto.dart';
 import '../constants/colors.dart';
 
-PreferredSizeWidget myAppBar(Crypto cryptoInfo, List<Widget> actions) {
+PreferredSizeWidget myAppBar({
+  required Crypto cryptoInfo,
+  List<Widget>? actions,
+}) {
   return AppBar(
     backgroundColor: secondaryColor,
     foregroundColor: textColor,
@@ -25,6 +28,6 @@ PreferredSizeWidget myAppBar(Crypto cryptoInfo, List<Widget> actions) {
         ),
       ],
     ),
-    actions: actions,
+    actions: actions ?? [],
   );
 }

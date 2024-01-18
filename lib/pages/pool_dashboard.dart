@@ -31,7 +31,7 @@ class _PoolDashboardState extends State<PoolDashboard> {
   @override
   void initState() {
     super.initState();
-    fetchCryptoData();
+    loadPoolStat();
   }
 
   void _showAlert(String msg) async {
@@ -70,20 +70,24 @@ class _PoolDashboardState extends State<PoolDashboard> {
   }
 
   changePool(int index) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Pool has been cnahged'),
-      duration: Duration(seconds: 3),
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Pool has been cnahged'),
+        duration: Duration(seconds: 2),
+      ),
+    );
 
     setState(() {
       _poolName = PoolName.values[index];
     });
 
-    fetchCryptoData();
+    loadPoolStat();
   }
 
-  Future<void> fetchCryptoData() async {
-    setState(() => _loading = true);
+  Future<void> loadPoolStat({bool? disableLoading}) async {
+    if (null == disableLoading) {
+      setState(() => _loading = true);
+    }
 
     try {
       var data = await PoolStatProvider.fetchData(_poolName, widget.crypto);
@@ -105,10 +109,9 @@ class _PoolDashboardState extends State<PoolDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
       appBar: myAppBar(
-        widget.crypto,
-        <Widget>[
+        cryptoInfo: widget.crypto,
+        actions: <Widget>[
           IconButton(
             icon: _loading
                 ? const CircularProgressIndicator()
@@ -116,54 +119,54 @@ class _PoolDashboardState extends State<PoolDashboard> {
                     Icons.replay,
                     color: textColor,
                   ),
-            onPressed: () {
-              // ScaffoldMessenger.of(context).showSnackBar(
-              //   const SnackBar(content: Text('Fetch crypto data')),
-              // );
-              fetchCryptoData();
-            },
+            onPressed: () => loadPoolStat(),
           ),
         ],
       ),
       body: DismissiblePage(
+        backgroundColor: primaryColor,
         onDismissed: () {
           Navigator.of(context).pop();
         },
         direction: DismissiblePageDismissDirection.startToEnd,
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0, right: 5.0, left: 5.0),
-                child: Container(
-                  height: 36,
-                  margin: const EdgeInsets.only(bottom: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: secondaryColor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.blue.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 5,
-                        // offset: const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    _poolName.name.capitalize(),
-                    style: const TextStyle(color: textColor, fontSize: 24),
-                    textAlign: TextAlign.center,
+          child: RefreshIndicator(
+            onRefresh: () => loadPoolStat(disableLoading: true),
+            child: ListView(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(top: 5.0, right: 5.0, left: 5.0),
+                  child: Container(
+                    height: 36,
+                    margin: const EdgeInsets.only(bottom: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: secondaryColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.blue.withOpacity(0.5),
+                          spreadRadius: 3,
+                          blurRadius: 2,
+                          // offset: const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      _poolName.name.capitalize(),
+                      style: const TextStyle(color: textColor, fontSize: 24),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-              ),
-              SummaryWidget(statistics: _statistics),
-              const SizedBox(height: 12.0),
-              RevenueWidget(statistics: _statistics),
-              const SizedBox(height: 12.0),
-              WorkersWidget(workers: _statistics.workers),
-            ],
+                SummaryWidget(statistics: _statistics),
+                const SizedBox(height: 12.0),
+                RevenueWidget(statistics: _statistics),
+                const SizedBox(height: 12.0),
+                WorkersWidget(workers: _statistics.workers),
+              ],
+            ),
           ),
         ),
       ),
