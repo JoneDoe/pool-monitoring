@@ -17,24 +17,14 @@ class _CryptoDashboardState extends State<CryptoDashboard> {
   @override
   void initState() {
     super.initState();
-    fetchCryptoData();
+    loadData();
   }
 
-  fetchCryptoData() async {
-    // Currency.values.forEach((Currency element) {
-    //   cryptos.add(Crypto(
-    //     name: element.name.capitalize(),
-    //     symbol: element.short,
-    //     iconUrl: element.iconUrl,
-    //   ));
-    // });
-
-    // return;
-
-    var jsonData = await CryptocurrencyListingProvider.fetchData();
+  loadData() async {
+    var data = await CryptocurrencyListingProvider.load();
 
     setState(() {
-      cryptos = jsonData;
+      cryptos = data;
     });
   }
 
@@ -56,43 +46,11 @@ class _CryptoDashboardState extends State<CryptoDashboard> {
         backgroundColor: secondaryColor,
         foregroundColor: textColor,
       ),
-      drawer: const Drawer(
-        backgroundColor: secondaryColor,
-        child: Column(
-          children: [
-            DrawerHeader(
-              child: Text(
-                'Menu',
-                style: TextStyle(color: textColor),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 15.0),
-              child: ListTile(
-                leading: Icon(Icons.home, color: textColor),
-                title: Text(
-                  'Home',
-                  style: TextStyle(color: textColor),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 15.0),
-              child: ListTile(
-                leading: Icon(Icons.settings, color: textColor),
-                title: Text(
-                  'Settings',
-                  style: TextStyle(color: textColor),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      drawer: _drawerWidget(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: RefreshIndicator(
-          onRefresh: () => fetchCryptoData(),
+          onRefresh: () => loadData(),
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
@@ -106,4 +64,40 @@ class _CryptoDashboardState extends State<CryptoDashboard> {
       ),
     );
   }
+}
+
+Widget _drawerWidget() {
+  return const Drawer(
+    backgroundColor: secondaryColor,
+    child: Column(
+      children: [
+        DrawerHeader(
+          child: Text(
+            'Menu',
+            style: TextStyle(color: textColor),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 15.0),
+          child: ListTile(
+            leading: Icon(Icons.home, color: textColor),
+            title: Text(
+              'Home',
+              style: TextStyle(color: textColor),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 15.0),
+          child: ListTile(
+            leading: Icon(Icons.settings, color: textColor),
+            title: Text(
+              'Settings',
+              style: TextStyle(color: textColor),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }

@@ -50,15 +50,15 @@ class CryptoCard extends StatelessWidget {
         },
         trailing: WalletProvider.isWalletExists(crypto.name)
             ? SizedBox(
-                width: 100,
+                width: 105,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    IconButton(
+                    IconButton.filled(
+                      iconSize: 20,
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChartDashboard(crypto: crypto),
+                          builder: (_) => ChartDashboard(crypto: crypto),
                         ),
                       ),
                       icon: const Icon(
@@ -66,7 +66,8 @@ class CryptoCard extends StatelessWidget {
                         color: textColor,
                       ),
                     ),
-                    IconButton(
+                    IconButton.filled(
+                      iconSize: 20,
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -74,7 +75,7 @@ class CryptoCard extends StatelessWidget {
                         ),
                       ),
                       icon: const Icon(
-                        Icons.arrow_forward_ios,
+                        Icons.info,
                         color: textColor,
                       ),
                     ),

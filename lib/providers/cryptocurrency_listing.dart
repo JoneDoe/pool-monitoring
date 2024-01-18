@@ -30,7 +30,7 @@ Map<Currency, String> _currencySlug = {
 };
 
 class CryptocurrencyListingProvider {
-  static Future<List<Crypto>> fetchData() async {
+  static Future<List<Crypto>> load() async {
     String? url = dotenv.env['COINGECKO_API'];
     if (url == null) {
       throw Exception('COINGECKO_API is empty');
