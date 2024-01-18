@@ -125,6 +125,7 @@ class _ChartDashboardState extends State<ChartDashboard> {
       oneDay: 0,
     );
     myBarData.initializeBarData();
+
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -168,48 +169,17 @@ class _ChartDashboardState extends State<ChartDashboard> {
           height: 400,
           child: BarChart(
             BarChartData(
+              alignment: BarChartAlignment.spaceAround,
               maxY: 300,
               minY: 0,
+              barTouchData: barTouchData,
               gridData: const FlGridData(
                 drawHorizontalLine: true,
                 drawVerticalLine: false,
               ),
-              borderData: FlBorderData(show: false),
-              titlesData: const FlTitlesData(
-                topTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 55,
-                    getTitlesWidget: getLeftTiles,
-                  ),
-                ),
-                rightTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 25,
-                    getTitlesWidget: getBottomTitles,
-                  ),
-                ),
-              ),
-              barGroups: myBarData.chartData
-                  .map((data) => BarChartGroupData(
-                        x: data.x,
-                        barRods: [
-                          BarChartRodData(
-                            toY: data.y,
-                            color: Colors.orange,
-                            width: 25,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ],
-                      ))
-                  .toList(),
+              borderData: borderData,
+              titlesData: titlesData,
+              barGroups: _chartGroups(myBarData),
             ),
           ),
         ),
@@ -218,7 +188,87 @@ class _ChartDashboardState extends State<ChartDashboard> {
   }
 }
 
-Widget getLeftTiles(double value, TitleMeta meta) {
+FlBorderData get borderData => FlBorderData(
+      show: false,
+    );
+
+LinearGradient get _barsGradient => LinearGradient(
+      colors: [
+        Colors.red.shade900,
+        Colors.orange.shade500,
+      ],
+      begin: Alignment.bottomCenter,
+      end: Alignment.topCenter,
+    );
+
+FlTitlesData get titlesData => const FlTitlesData(
+      show: true,
+      topTitles: AxisTitles(
+        sideTitles: SideTitles(showTitles: false),
+      ),
+      leftTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 55,
+          getTitlesWidget: _getLeftTiles,
+        ),
+      ),
+      rightTitles: AxisTitles(
+        sideTitles: SideTitles(showTitles: false),
+      ),
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 25,
+          getTitlesWidget: _getBottomTitles,
+        ),
+      ),
+    );
+
+BarTouchData get barTouchData => BarTouchData(
+      enabled: true,
+      touchTooltipData: BarTouchTooltipData(
+        tooltipBgColor: const Color.fromARGB(93, 96, 125, 139),
+        tooltipPadding: const EdgeInsets.all(6),
+        tooltipMargin: 8,
+        getTooltipItem: (
+          BarChartGroupData group,
+          int groupIndex,
+          BarChartRodData rod,
+          int rodIndex,
+        ) {
+          return BarTooltipItem(
+            rod.toY.toString(),
+            const TextStyle(
+              color: Colors.cyan,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          );
+        },
+      ),
+    );
+
+List<BarChartGroupData> _chartGroups(ChartData myBarData) {
+  return myBarData.chartData
+      .map((data) => BarChartGroupData(
+            x: data.x,
+            barRods: [
+              BarChartRodData(
+                toY: data.y,
+                width: 30,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                gradient: _barsGradient,
+              ),
+            ],
+          ))
+      .toList();
+}
+
+Widget _getLeftTiles(double value, TitleMeta meta) {
   return SideTitleWidget(
     axisSide: meta.axisSide,
     child: Text(
@@ -228,7 +278,7 @@ Widget getLeftTiles(double value, TitleMeta meta) {
   );
 }
 
-Widget getBottomTitles(double value, TitleMeta meta) {
+Widget _getBottomTitles(double value, TitleMeta meta) {
   String textValue = '';
   switch (value.toInt()) {
     case 1:
