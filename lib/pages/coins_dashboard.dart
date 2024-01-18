@@ -4,14 +4,14 @@ import '../components/crypto_card.dart';
 import '../models/crypto.dart';
 import '../providers/cryptocurrency_listing.dart';
 
-class CryptoDashboard extends StatefulWidget {
-  const CryptoDashboard({super.key});
+class CoinsListingDashboard extends StatefulWidget {
+  const CoinsListingDashboard({super.key});
 
   @override
-  State<CryptoDashboard> createState() => _CryptoDashboardState();
+  State<CoinsListingDashboard> createState() => _CoinsListingDashboardState();
 }
 
-class _CryptoDashboardState extends State<CryptoDashboard> {
+class _CoinsListingDashboardState extends State<CoinsListingDashboard> {
   List<Crypto> cryptos = [];
 
   @override

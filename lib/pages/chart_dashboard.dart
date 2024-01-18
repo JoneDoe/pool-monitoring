@@ -8,7 +8,7 @@ import '../models/pool_factory.dart';
 import '../models/crypto.dart';
 import '../chart/providers/daily_stat_provider.dart';
 import '../widgets/app_bar_widget.dart';
-import 'main_dashboard.dart';
+import 'coins_dashboard.dart';
 
 class ChartDashboard extends StatefulWidget {
   final Crypto crypto;
@@ -55,7 +55,8 @@ class _ChartDashboardState extends State<ChartDashboard> {
                 ),
               ),
               onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const CryptoDashboard()),
+                MaterialPageRoute(
+                    builder: (_) => const CoinsListingDashboard()),
               ),
               child: const Text('OK'),
             ),

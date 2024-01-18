@@ -12,7 +12,7 @@ import '../widgets/app_bar_widget.dart';
 import '../widgets/revenue_widget.dart';
 import '../widgets/summary_widget.dart';
 import '../widgets/workers_widget.dart';
-import 'main_dashboard.dart';
+import 'coins_dashboard.dart';
 
 class PoolDashboard extends StatefulWidget {
   final Crypto crypto;
@@ -59,7 +59,8 @@ class _PoolDashboardState extends State<PoolDashboard> {
                 ),
               ),
               onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const CryptoDashboard()),
+                MaterialPageRoute(
+                    builder: (_) => const CoinsListingDashboard()),
               ),
               child: const Text('OK'),
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'pages/main_dashboard.dart';
+import 'pages/coins_dashboard.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CryptoDashboard(),
+      home: CoinsListingDashboard(),
     );
   }
 }
