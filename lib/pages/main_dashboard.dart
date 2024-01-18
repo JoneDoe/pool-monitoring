@@ -13,7 +13,6 @@ class CryptoDashboard extends StatefulWidget {
 
 class _CryptoDashboardState extends State<CryptoDashboard> {
   List<Crypto> cryptos = [];
-  bool _loading = false;
 
   @override
   void initState() {
@@ -31,12 +30,10 @@ class _CryptoDashboardState extends State<CryptoDashboard> {
     // });
 
     // return;
-    setState(() => _loading = true);
 
     var jsonData = await CryptocurrencyListingProvider.fetchData();
 
     setState(() {
-      _loading = false;
       cryptos = jsonData;
     });
   }
@@ -56,26 +53,6 @@ class _CryptoDashboardState extends State<CryptoDashboard> {
           'Coins listing',
           style: TextStyle(color: textColor),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: _loading
-                ? const CircularProgressIndicator()
-                : const Icon(
-                    Icons.replay,
-                    color: textColor,
-                  ),
-            tooltip: 'Show Snackbar',
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Fetch crypto data'),
-                  duration: Duration(seconds: 3),
-                ),
-              );
-              fetchCryptoData();
-            },
-          ),
-        ],
         backgroundColor: secondaryColor,
         foregroundColor: textColor,
       ),
@@ -114,14 +91,17 @@ class _CryptoDashboardState extends State<CryptoDashboard> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            childAspectRatio: 5,
-            mainAxisSpacing: 15.0,
+        child: RefreshIndicator(
+          onRefresh: () => fetchCryptoData(),
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 1,
+              childAspectRatio: 5,
+              mainAxisSpacing: 15.0,
+            ),
+            itemCount: cryptos.length,
+            itemBuilder: (_, index) => CryptoCard(crypto: cryptos[index]),
           ),
-          itemCount: cryptos.length,
-          itemBuilder: (_, index) => CryptoCard(crypto: cryptos[index]),
         ),
       ),
     );
