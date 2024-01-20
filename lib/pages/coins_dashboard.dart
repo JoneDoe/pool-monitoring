@@ -3,6 +3,7 @@ import '../constants/colors.dart';
 import '../components/crypto_card.dart';
 import '../models/crypto.dart';
 import '../providers/cryptocurrency_listing.dart';
+import 'my_wallet_page.dart';
 
 class CoinsListingDashboard extends StatefulWidget {
   const CoinsListingDashboard({super.key});
@@ -46,7 +47,7 @@ class _CoinsListingDashboardState extends State<CoinsListingDashboard> {
         backgroundColor: secondaryColor,
         foregroundColor: textColor,
       ),
-      drawer: _drawerWidget(),
+      drawer: const DrawerWidget(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: RefreshIndicator(
@@ -66,38 +67,50 @@ class _CoinsListingDashboardState extends State<CoinsListingDashboard> {
   }
 }
 
-Widget _drawerWidget() {
-  return const Drawer(
-    backgroundColor: secondaryColor,
-    child: Column(
-      children: [
-        DrawerHeader(
-          child: Text(
-            'Menu',
-            style: TextStyle(color: textColor),
+class DrawerWidget extends StatelessWidget {
+  const DrawerWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: secondaryColor,
+      child: Column(
+        children: [
+          const DrawerHeader(
+            child: Text(
+              'Menu',
+              style: TextStyle(color: textColor),
+            ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 15.0),
-          child: ListTile(
+          const ListTile(
             leading: Icon(Icons.home, color: textColor),
             title: Text(
               'Home',
               style: TextStyle(color: textColor),
             ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 15.0),
-          child: ListTile(
+          ListTile(
+            leading: const Icon(Icons.wallet, color: textColor),
+            title: const Text(
+              'My wallet',
+              style: TextStyle(color: textColor),
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => MyWalletPage()),
+              );
+            },
+          ),
+          const ListTile(
             leading: Icon(Icons.settings, color: textColor),
             title: Text(
               'Settings',
               style: TextStyle(color: textColor),
             ),
           ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }
