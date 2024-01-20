@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import '../constants/colors.dart';
 import '../components/crypto_card.dart';
 import '../models/crypto.dart';
 import '../providers/cryptocurrency_listing.dart';
-import 'my_wallet_page.dart';
+import '../widgets/drawer_widget.dart';
 
 class CoinsListingDashboard extends StatefulWidget {
   const CoinsListingDashboard({super.key});
@@ -62,54 +63,6 @@ class _CoinsListingDashboardState extends State<CoinsListingDashboard> {
             itemBuilder: (_, index) => CryptoCard(crypto: cryptos[index]),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      backgroundColor: secondaryColor,
-      child: Column(
-        children: [
-          const DrawerHeader(
-            child: Text(
-              'Menu',
-              style: TextStyle(color: textColor),
-            ),
-          ),
-          const ListTile(
-            leading: Icon(Icons.home, color: textColor),
-            title: Text(
-              'Home',
-              style: TextStyle(color: textColor),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.wallet, color: textColor),
-            title: const Text(
-              'My wallet',
-              style: TextStyle(color: textColor),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => MyWalletPage()),
-              );
-            },
-          ),
-          const ListTile(
-            leading: Icon(Icons.settings, color: textColor),
-            title: Text(
-              'Settings',
-              style: TextStyle(color: textColor),
-            ),
-          ),
-        ],
       ),
     );
   }
