@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../pages/my_wallet_page.dart';
+import '/constants.dart';
+import '/pages/my_wallet_page.dart';
+import '/pages/settings_page.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -38,12 +39,18 @@ class DrawerWidget extends StatelessWidget {
               );
             },
           ),
-          const ListTile(
-            leading: Icon(Icons.settings, color: textColor),
-            title: Text(
+          ListTile(
+            leading: const Icon(Icons.settings, color: textColor),
+            title: const Text(
               'Settings',
               style: TextStyle(color: textColor),
             ),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
+              );
+            },
           ),
         ],
       ),

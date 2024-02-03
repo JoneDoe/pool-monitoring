@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'models/bar.dart';
+import 'bar.dart';
 
 class AppBarChartData {
   final List<Bar> _chartData = [];

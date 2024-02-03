@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../../components/url_builder.dart';
+import '/components/url_builder.dart';
+import '/models/crypto.dart';
+import '/providers/pool_config_provider.dart';
 import '../models/pool_factory.dart';
-import '../../models/crypto.dart';
-import '../../providers/pool_config_provider.dart';
 
 class PoolStatProvider {
   static Future<PoolStatFactory> fetchData(

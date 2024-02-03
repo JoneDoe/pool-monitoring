@@ -1,7 +1,7 @@
-import '../pool/models/pool_factory.dart';
-import '../models/crypto.dart';
-import '../exceptions/waller_exception.dart';
-import '../my_wallet/providers/wallet_provider.dart';
+import '/pool/models/pool_factory.dart';
+import '/models/crypto.dart';
+import '/exceptions/waller_exception.dart';
+import '/my_wallet/providers/wallet_provider.dart';
 
 class PoolUrlBuilder {
   PoolName poolName;

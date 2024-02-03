@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
+import '/constants.dart';
+import '/extensions/number_extension.dart';
 import '../models/worker.dart';
-import '../../extensions/number_extension.dart';
 
 class WorkersWidget extends StatelessWidget {
   const WorkersWidget({super.key, required List<Worker> workers})
@@ -15,7 +15,7 @@ class WorkersWidget extends StatelessWidget {
     return Container(
       height: 210,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(itemBorderRadius),
         color: secondaryColor,
       ),
       child: Column(

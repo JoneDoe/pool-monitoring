@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../models/crypto.dart';
-import '../constants.dart';
+import '/models/crypto.dart';
+import '/constants.dart';
 
 PreferredSizeWidget myAppBar({
   required Crypto cryptoInfo,

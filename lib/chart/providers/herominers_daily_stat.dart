@@ -1,7 +1,6 @@
-import 'package:pool_monitoring/chart/providers/abstract_daily_stat.dart';
-
-import '../../providers/pool_config_provider.dart';
-import '../bar_chart_data.dart';
+import '/providers/pool_config_provider.dart';
+import '../models/bar_chart_data.dart';
+import '../providers/abstract_daily_stat.dart';
 
 class HerominersDailyStat extends AbstractDailyStat {
   @override

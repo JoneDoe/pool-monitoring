@@ -2,16 +2,16 @@ import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import '../exceptions/waller_exception.dart';
-import '../extensions/string_extension.dart';
-import '../constants.dart';
-import '../pool/models/pool_factory.dart';
-import '../models/crypto.dart';
-import '../pool/providers/pool_stat_provider.dart';
-import '../widgets/app_bar_widget.dart';
-import '../pool/widgets/revenue_widget.dart';
-import '../pool/widgets/summary_widget.dart';
-import '../pool/widgets/workers_widget.dart';
+import '/exceptions/waller_exception.dart';
+import '/extensions/string_extension.dart';
+import '/constants.dart';
+import '/pool/models/pool_factory.dart';
+import '/models/crypto.dart';
+import '/pool/providers/pool_stat_provider.dart';
+import '/widgets/app_bar_widget.dart';
+import '/pool/widgets/revenue_widget.dart';
+import '/pool/widgets/summary_widget.dart';
+import '/pool/widgets/workers_widget.dart';
 import 'coins_dashboard.dart';
 
 class PoolDashboard extends StatefulWidget {
@@ -55,7 +55,7 @@ class _PoolDashboardState extends State<PoolDashboard> {
                 backgroundColor: primaryColor,
                 elevation: 3,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(itemBorderRadius),
                 ),
               ),
               onPressed: () => Navigator.of(context).push(

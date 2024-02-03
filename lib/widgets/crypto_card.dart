@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../extensions/number_extension.dart';
-import '../pages/chart_dashboard.dart';
-import '../pages/pool_dashboard.dart';
-import '../models/crypto.dart';
-import '../my_wallet/providers/wallet_provider.dart';
+import '/constants.dart';
+import '/extensions/number_extension.dart';
+import '/pages/chart_dashboard.dart';
+import '/pages/pool_dashboard.dart';
+import '/models/crypto.dart';
+import '/my_wallet/providers/wallet_provider.dart';
 
 class CryptoCard extends StatelessWidget {
   final Crypto crypto;
@@ -16,7 +16,7 @@ class CryptoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(itemBorderRadius),
         color: Colors.grey[100],
         boxShadow: [
           BoxShadow(

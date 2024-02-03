@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pool_monitoring/extensions/string_extension.dart';
 
-import '../../constants.dart';
+import '/constants.dart';
 import '../models/wallet_entry.dart';
 
 class WalletItemWidget extends StatelessWidget {
@@ -14,7 +14,7 @@ class WalletItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(itemBorderRadius),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.5),

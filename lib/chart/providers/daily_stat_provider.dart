@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:pool_monitoring/chart/providers/abstract_daily_stat.dart';
 
-import '../bar_chart_data.dart';
-import '../../components/url_builder.dart';
-import '../../pool/models/pool_factory.dart';
-import '../../models/crypto.dart';
-import '../../providers/pool_config_provider.dart';
+import '../providers/abstract_daily_stat.dart';
+import '../models/bar_chart_data.dart';
+import '/components/url_builder.dart';
+import '/pool/models/pool_factory.dart';
+import '/models/crypto.dart';
+import '/providers/pool_config_provider.dart';
 import 'herominers_daily_stat.dart';
 
 class DailyStatProvider {

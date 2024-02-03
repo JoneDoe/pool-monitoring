@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../widgets/crypto_card.dart';
-import '../models/crypto.dart';
-import '../providers/cryptocurrency_listing.dart';
-import '../widgets/drawer_widget.dart';
+import '/constants.dart';
+import '/widgets/crypto_card.dart';
+import '/models/crypto.dart';
+import '/providers/cryptocurrency_listing.dart';
+import '/widgets/drawer_widget.dart';
 
 class CoinsListingDashboard extends StatefulWidget {
   const CoinsListingDashboard({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'time_revenue_item.dart';
-import '../../constants.dart';
+import '/constants.dart';
 import '../models/pool_factory.dart';
 
 class RevenueWidget extends StatelessWidget {
@@ -15,7 +15,7 @@ class RevenueWidget extends StatelessWidget {
     return Container(
       height: 210,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(itemBorderRadius),
         color: secondaryColor,
       ),
       child: Column(

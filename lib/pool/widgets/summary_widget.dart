@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'info_item.dart';
-import '../../constants.dart';
+import '/constants.dart';
+import '/extensions/number_extension.dart';
 import '../models/pool_factory.dart';
-import '../../extensions/number_extension.dart';
 
 class SummaryWidget extends StatelessWidget {
   const SummaryWidget({super.key, required PoolStatFactory statistics})
@@ -16,7 +16,7 @@ class SummaryWidget extends StatelessWidget {
     return Container(
       height: 245,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(itemBorderRadius),
         color: secondaryColor,
       ),
       child: Column(

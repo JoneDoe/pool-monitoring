@@ -1,13 +1,13 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../chart/bar_chart_data.dart';
-import '../exceptions/waller_exception.dart';
-import '../constants.dart';
-import '../pool/models/pool_factory.dart';
-import '../models/crypto.dart';
-import '../chart/providers/daily_stat_provider.dart';
-import '../widgets/app_bar_widget.dart';
+import '../chart/models/bar_chart_data.dart';
+import '/exceptions/waller_exception.dart';
+import '/constants.dart';
+import '/pool/models/pool_factory.dart';
+import '/models/crypto.dart';
+import '/chart/providers/daily_stat_provider.dart';
+import '/widgets/app_bar_widget.dart';
 import 'coins_dashboard.dart';
 
 class ChartDashboard extends StatefulWidget {
@@ -51,7 +51,7 @@ class _ChartDashboardState extends State<ChartDashboard> {
                 backgroundColor: primaryColor,
                 elevation: 3,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(itemBorderRadius),
                 ),
               ),
               onPressed: () => Navigator.of(context).push(
