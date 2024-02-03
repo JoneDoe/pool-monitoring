@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
+import '../constants.dart';
 import '../extensions/number_extension.dart';
 import '../pages/chart_dashboard.dart';
 import '../pages/pool_dashboard.dart';

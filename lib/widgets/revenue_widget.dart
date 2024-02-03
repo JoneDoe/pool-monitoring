@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/time_revenue_item.dart';
-import '../constants/colors.dart';
+import '../constants.dart';
 import '../models/pool_factory.dart';
 
 class RevenueWidget extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../exceptions/waller_exception.dart';
 import '../extensions/string_extension.dart';
-import '../constants/colors.dart';
+import '../constants.dart';
 import '../models/pool_factory.dart';
 import '../models/crypto.dart';
 import '../providers/pool_stat_provider.dart';

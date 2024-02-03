@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
-import '../my_wallet/pages/my_wallet_page.dart';
+import '../constants.dart';
+import '../pages/my_wallet_page.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
+import '../constants.dart';
 import '../components/crypto_card.dart';
 import '../models/crypto.dart';
 import '../providers/cryptocurrency_listing.dart';

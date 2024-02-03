@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pool_monitoring/extensions/string_extension.dart';
 
-import '../../constants/colors.dart';
+import '../../constants.dart';
 import '../models/wallet_entry.dart';
 
 class WalletItemWidget extends StatelessWidget {

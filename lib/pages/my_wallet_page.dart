@@ -4,13 +4,13 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-import '../data/bucket.dart';
-import '../../extensions/string_extension.dart';
-import '../../constants/colors.dart';
-import '../../providers/cryptocurrency_listing.dart';
-import '../exception.dart';
-import '../models/wallet_entry.dart';
-import '../widgets/wallet_item_widgte.dart';
+import '../my_wallet/data/bucket.dart';
+import '../extensions/string_extension.dart';
+import '../constants.dart';
+import '../providers/cryptocurrency_listing.dart';
+import '../my_wallet/exception.dart';
+import '../my_wallet/models/wallet_entry.dart';
+import '../my_wallet/widgets/wallet_item_widgte.dart';
 
 class MyWalletsPage extends StatefulWidget {
   const MyWalletsPage({super.key});

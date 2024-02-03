@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/info_item.dart';
-import '../constants/colors.dart';
+import '../constants.dart';
 import '../models/pool_factory.dart';
 import '../extensions/number_extension.dart';
 

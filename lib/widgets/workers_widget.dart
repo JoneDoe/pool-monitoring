@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
+import '../constants.dart';
 import '../models/worker.dart';
 import '../extensions/number_extension.dart';
 

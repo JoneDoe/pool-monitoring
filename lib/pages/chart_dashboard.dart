@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../chart/bar_chart_data.dart';
 import '../exceptions/waller_exception.dart';
-import '../constants/colors.dart';
+import '../constants.dart';
 import '../models/pool_factory.dart';
 import '../models/crypto.dart';
 import '../chart/providers/daily_stat_provider.dart';
