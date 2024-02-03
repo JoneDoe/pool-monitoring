@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 import '../models/worker.dart';
-import '../extensions/number_extension.dart';
+import '../../extensions/number_extension.dart';
 
 class WorkersWidget extends StatelessWidget {
   const WorkersWidget({super.key, required List<Worker> workers})

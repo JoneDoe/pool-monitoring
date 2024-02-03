@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../components/info_item.dart';
-import '../constants.dart';
+import 'info_item.dart';
+import '../../constants.dart';
 import '../models/pool_factory.dart';
-import '../extensions/number_extension.dart';
+import '../../extensions/number_extension.dart';
 
 class SummaryWidget extends StatelessWidget {
   const SummaryWidget({super.key, required PoolStatFactory statistics})

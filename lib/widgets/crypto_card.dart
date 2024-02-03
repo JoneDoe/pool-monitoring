@@ -5,7 +5,7 @@ import '../extensions/number_extension.dart';
 import '../pages/chart_dashboard.dart';
 import '../pages/pool_dashboard.dart';
 import '../models/crypto.dart';
-import '../providers/wallet_provider.dart';
+import '../my_wallet/providers/wallet_provider.dart';
 
 class CryptoCard extends StatelessWidget {
   final Crypto crypto;

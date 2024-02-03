@@ -1,4 +1,4 @@
-import '../providers/pool_config_provider.dart';
+import '../../providers/pool_config_provider.dart';
 
 import 'herominers_pool_stats.dart';
 import 'woolypooly_pool_stats.dart';

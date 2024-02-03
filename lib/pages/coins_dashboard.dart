@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import '../components/crypto_card.dart';
+import '../widgets/crypto_card.dart';
 import '../models/crypto.dart';
 import '../providers/cryptocurrency_listing.dart';
 import '../widgets/drawer_widget.dart';

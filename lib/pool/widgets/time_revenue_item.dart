@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../extensions/number_extension.dart';
+import '../../constants.dart';
+import '../../extensions/number_extension.dart';
 
 class TimeRevenueItem extends StatelessWidget {
   final String name;

@@ -5,13 +5,13 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../exceptions/waller_exception.dart';
 import '../extensions/string_extension.dart';
 import '../constants.dart';
-import '../models/pool_factory.dart';
+import '../pool/models/pool_factory.dart';
 import '../models/crypto.dart';
-import '../providers/pool_stat_provider.dart';
+import '../pool/providers/pool_stat_provider.dart';
 import '../widgets/app_bar_widget.dart';
-import '../widgets/revenue_widget.dart';
-import '../widgets/summary_widget.dart';
-import '../widgets/workers_widget.dart';
+import '../pool/widgets/revenue_widget.dart';
+import '../pool/widgets/summary_widget.dart';
+import '../pool/widgets/workers_widget.dart';
 import 'coins_dashboard.dart';
 
 class PoolDashboard extends StatefulWidget {

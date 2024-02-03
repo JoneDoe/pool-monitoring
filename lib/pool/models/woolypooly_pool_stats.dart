@@ -1,4 +1,4 @@
-import '../providers/pool_config_provider.dart';
+import '../../providers/pool_config_provider.dart';
 import 'pool_factory.dart';
 import 'worker.dart';
 
