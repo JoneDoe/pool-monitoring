@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:pool_monitoring/widgets/default_app_bar.dart';
 
-import '/my_wallet/data/bucket.dart';
 import '/extensions/string_extension.dart';
 import '/constants.dart';
 import '/providers/cryptocurrency_listing.dart';
 import '/my_wallet/exception.dart';
 import '/my_wallet/models/wallet_entry.dart';
 import '/my_wallet/widgets/wallet_item_widgte.dart';
+import '/my_wallet/data/bucket.dart';
 
 class MyWalletsPage extends StatefulWidget {
   const MyWalletsPage({super.key});
@@ -36,19 +37,7 @@ class _MyWalletsPageState extends State<MyWalletsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(
-        leading: Builder(builder: (context) {
-          return BackButton(
-            onPressed: () => Navigator.pop(context),
-          );
-        }),
-        title: const Text(
-          'My Wallets',
-          style: TextStyle(color: textColor),
-        ),
-        backgroundColor: secondaryColor,
-        foregroundColor: textColor,
-      ),
+      appBar: defaultAppBar(textTitle: 'My Wallets'),
       body: _bucket.size() > 0
           ? ListView.separated(
               padding: const EdgeInsets.all(16),
@@ -62,7 +51,48 @@ class _MyWalletsPageState extends State<MyWalletsPage> {
                   direction: DismissDirection.endToStart,
                   background: buildSwipeActionWidget(),
                   key: UniqueKey(),
-                  onDismissed: (direction) => onDismissedAction(direction, idx),
+                  confirmDismiss: (DismissDirection direction) {
+                    return showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Confirm"),
+                          content: const Text(
+                            "Are you sure you wish to delete this item?",
+                          ),
+                          actions: <Widget>[
+                            FilledButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: primaryColor,
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(itemBorderRadius),
+                                ),
+                              ),
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: const Text('Cancel'),
+                            ),
+                            FilledButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: primaryColor,
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(itemBorderRadius),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop(true);
+                                onDismissedAction(idx);
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   child: WalletItemWidget(wallet: _bucket.getAt(idx)),
                 );
               },
@@ -204,7 +234,7 @@ class _MyWalletsPageState extends State<MyWalletsPage> {
     });
   }
 
-  void onDismissedAction(DismissDirection direction, int index) {
+  void onDismissedAction(int index) {
     setState(() {
       _bucket.remove(index);
     });

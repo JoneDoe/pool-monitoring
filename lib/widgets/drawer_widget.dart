@@ -19,13 +19,6 @@ class DrawerWidget extends StatelessWidget {
               style: TextStyle(color: textColor),
             ),
           ),
-          // const ListTile(
-          //   leading: Icon(Icons.home, color: textColor),
-          //   title: Text(
-          //     'Home',
-          //     style: TextStyle(color: textColor),
-          //   ),
-          // ),
           ListTile(
             leading: const Icon(Icons.wallet, color: textColor),
             title: const Text(
@@ -48,7 +41,7 @@ class DrawerWidget extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SettingsPage()),
+                MaterialPageRoute(builder: (context) => SettingsPage()),
               );
             },
           ),

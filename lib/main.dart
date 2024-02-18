@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'my_wallet/models/wallet_entry.dart';
 import 'pages/coins_dashboard.dart';
+import 'settings/models/settings_model.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -16,6 +17,7 @@ void main() async {
   Hive.defaultDirectory = directory.path;
 
   Hive.registerAdapter('WalletEntryItem', WalletEntryItem.fromJson);
+  Hive.registerAdapter('AppSettings', AppSettings.fromJson);
 
   runApp(const MyApp());
 }
