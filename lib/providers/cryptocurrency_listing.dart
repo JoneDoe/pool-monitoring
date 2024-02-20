@@ -12,7 +12,8 @@ enum Currency {
   pyrin,
   solana,
   radiant,
-  kaspa;
+  kaspa,
+  nexellia;
 
   String get short => _currencySlug[this]!;
   String get iconUrl => 'assets/$name.webp';
@@ -27,6 +28,7 @@ Map<Currency, String> _currencySlug = {
   Currency.radiant: 'rxd',
   Currency.pyrin: 'pyi',
   Currency.karlsen: 'kls',
+  Currency.nexellia: 'nxl'
 };
 
 class CryptocurrencyListingProvider {
