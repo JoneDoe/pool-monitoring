@@ -6,7 +6,7 @@ const _bucketName = 'SETTINGS_HOLDER';
 class SettingsProvider {
   final _myBox = Hive.box();
 
-  AppSettings _settings = AppSettings();
+  AppSettings _settings = AppSettings.init();
 
   void loadData() {
     _settings = _myBox.get(_bucketName, defaultValue: _settings);

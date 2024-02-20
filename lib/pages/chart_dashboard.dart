@@ -140,7 +140,7 @@ Widget chartWidget(AppBarChartData barData) {
         // swapAnimationDuration: const Duration(milliseconds: 150),
         BarChartData(
           // alignment: BarChartAlignment.spaceAround,
-          maxY: barData.maxValue().roundToDouble() + 1,
+          maxY: barData.maxValue().roundToDouble() * 1.2,
           minY: 0,
           barTouchData: barTouchData,
           gridData: const FlGridData(

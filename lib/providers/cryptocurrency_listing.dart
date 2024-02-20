@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+import '../settings/providers/settings_provider.dart';
 import '/models/crypto.dart';
 
 enum Currency {
@@ -43,8 +44,12 @@ class CryptocurrencyListingProvider {
       throw Exception('COINGECKO_TOKEN is empty');
     }
 
+    final SettingsProvider provider = SettingsProvider();
+    provider.loadData();
+
     url =
-        '$url&ids=${Currency.values.map((Currency cyrrecy) => cyrrecy.name).join(',')}';
+        // '$url&ids=${Currency.values.map((Currency cyrrecy) => cyrrecy.name).join(',')}';
+        '$url&ids=${provider.items.cyrrency.join(',')}';
     // print(url);
     Map<String, String> headers = {
       'Accepts': 'application/json',
