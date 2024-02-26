@@ -9,6 +9,7 @@ class Worker {
     return Worker(
       name: map['name'],
       hashrate: map['hashrate'].toDouble() / 1000000000,
+      offline: map['hashrate'] == 0,
     );
   }
 

@@ -14,7 +14,7 @@ class SummaryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 245,
+      height: 220,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(itemBorderRadius),
         color: secondaryColor,
@@ -27,35 +27,20 @@ class SummaryWidget extends StatelessWidget {
                 '${NumberParsing(_statistics.hashrate).digit(decimal: 2)} Gh/s',
             icon: Icons.speed,
           ),
-          const Divider(
-            height: 20,
-            indent: 12,
-            endIndent: 12,
-            color: Colors.white30,
-          ),
+          const DividerWidget(),
           InfoRowItem(
             name: 'Effort',
             value: '${NumberParsing(_statistics.effort).digit(decimal: 2)}%',
             icon: Icons.person,
           ),
-          const Divider(
-            height: 20,
-            indent: 12,
-            endIndent: 12,
-            color: Colors.white30,
-          ),
+          const DividerWidget(),
           InfoRowItem(
             name: 'Balance',
             value:
                 '${NumberParsing(_statistics.paid).digit(decimal: 2)} (${NumberParsing(_statistics.paid * _statistics.price).asMoney()})',
             icon: Icons.wallet,
           ),
-          const Divider(
-            height: 20,
-            indent: 12,
-            endIndent: 12,
-            color: Colors.white30,
-          ),
+          const DividerWidget(),
           InfoRowItem(
             name: 'Price',
             value: NumberParsing(_statistics.price).asMoney(),
@@ -63,6 +48,22 @@ class SummaryWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class DividerWidget extends StatelessWidget {
+  const DividerWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Divider(
+      height: 12,
+      indent: 12,
+      endIndent: 12,
+      color: Colors.white30,
     );
   }
 }

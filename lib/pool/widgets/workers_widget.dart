@@ -13,7 +13,7 @@ class WorkersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180,
+      height: 160,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(itemBorderRadius),
         color: secondaryColor,
