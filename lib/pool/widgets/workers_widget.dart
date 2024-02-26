@@ -13,7 +13,7 @@ class WorkersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 210,
+      height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(itemBorderRadius),
         color: secondaryColor,
@@ -67,7 +67,7 @@ class WorkersRowBuilderWidget extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: SizedBox(
-            height: 50,
+            height: 100,
             child: ListView.builder(
               itemCount: _workers.length,
               itemBuilder: (context, index) {
