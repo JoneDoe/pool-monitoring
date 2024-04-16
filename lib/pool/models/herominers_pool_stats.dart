@@ -24,7 +24,7 @@ class HerominersPoolStats extends PoolStatFactory {
       hashrate: stats['hashrate'] / 1000000000,
       effort: 100,
       price: config.coinPrice,
-      paid: double.parse(stats['paid']) / config.coinUnits,
+      paid: double.parse(stats['paid'] ?? '0') / config.coinUnits,
       incomeHour: 0,
       incomeHalfDay: stats['payments_24h'].toDouble() / 2 / config.coinUnits,
       incomeDay: stats['payments_24h'].toDouble() / config.coinUnits,

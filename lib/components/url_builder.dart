@@ -1,3 +1,4 @@
+import '../providers/cryptocurrency_listing.dart';
 import '/pool/models/pool_factory.dart';
 import '/models/crypto.dart';
 import '/exceptions/waller_exception.dart';
@@ -10,7 +11,7 @@ class PoolUrlBuilder {
   PoolUrlBuilder({required this.poolName, required this.coin});
 
   String url() {
-    String? wallet = WalletProvider.getWallet(coin.name);
+    String? wallet = WalletProvider.getWallet(coin.currency.name);
 
     if (wallet == null) {
       throw WalletException('Wallet not found for `${coin.name}`');
@@ -20,7 +21,7 @@ class PoolUrlBuilder {
 
     switch (poolName) {
       case PoolName.herominers:
-        builder = Herominers(coin: coin.name, wallet: wallet);
+        builder = Herominers(coin: coin.currency.name, wallet: wallet);
       default:
         builder = Woolypooly(coin: coin.symbol, wallet: wallet);
     }

@@ -48,7 +48,7 @@ class CryptoCard extends StatelessWidget {
             ),
           );
         },
-        trailing: WalletProvider.isWalletExists(crypto.name)
+        trailing: WalletProvider.isWalletExists(crypto.currency.name)
             ? SizedBox(
                 width: 105,
                 child: Row(
@@ -91,7 +91,7 @@ class CryptoCard extends StatelessWidget {
           },
         ),
         title: Text(
-          '${crypto.name} (${crypto.symbol.toUpperCase()})',
+          '${crypto.name} (${crypto.currency.short.toUpperCase()})',
           style: const TextStyle(
             color: textColor,
           ),

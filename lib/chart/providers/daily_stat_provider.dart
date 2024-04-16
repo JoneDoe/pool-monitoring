@@ -18,7 +18,7 @@ class DailyStatProvider {
     final response = await http.get(Uri.parse(builder.url()));
     final decoded = json.decode(response.body);
 
-    Config config = await PoolConfigProvider().load(crypto.name);
+    Config config = await PoolConfigProvider().load(crypto.currency.name);
 
     final AbstractDailyStat loader;
 
@@ -30,7 +30,8 @@ class DailyStatProvider {
           loader = HerominersDailyStat();
       }
     } else {
-      throw Exception('Failed to load daily stat data for ${crypto.name}');
+      throw Exception(
+          'Failed to load daily stat data for ${crypto.currency.name}');
     }
 
     return loader.load(decoded, config);

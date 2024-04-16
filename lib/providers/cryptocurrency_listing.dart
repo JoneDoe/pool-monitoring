@@ -14,6 +14,7 @@ enum Currency {
   solana,
   radiant,
   kaspa,
+  ironfish,
   nexellia;
 
   String get short => _currencySlug[this]!;
@@ -29,6 +30,7 @@ Map<Currency, String> _currencySlug = {
   Currency.radiant: 'rxd',
   Currency.pyrin: 'pyi',
   Currency.karlsen: 'kls',
+  Currency.ironfish: 'iron',
   Currency.nexellia: 'nxl'
 };
 
@@ -49,7 +51,7 @@ class CryptocurrencyListingProvider {
 
     url =
         // '$url&ids=${Currency.values.map((Currency cyrrecy) => cyrrecy.name).join(',')}';
-        '$url&ids=${provider.items.cyrrency.join(',')}';
+        '$url&ids=iron-fish,${provider.items.cyrrency.join(',')}';
     // print(url);
     Map<String, String> headers = {
       'Accepts': 'application/json',
